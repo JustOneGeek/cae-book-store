@@ -233,6 +233,7 @@ def put_user():
     db.session.commit()
     return make_response("success",200)
 
+
 @app.delete('/user')
 @token_auth.login_required()
 def delete_user():
@@ -255,6 +256,14 @@ def get_books():
     '''
     return make_response({"books":[book.to_dict() for book in Book.query.all()]}, 200)
 
+@app.get('/book/<int:id>')
+def get_book(id):
+    '''
+        No Auth
+        
+        returns info for the book with the id:id
+    '''
+    return make_response(Book.query.filter_by(id=id).first().to_dict(), 200)
 
 @app.post('/book')
 @token_auth.login_required()
