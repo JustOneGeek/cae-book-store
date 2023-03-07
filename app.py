@@ -359,7 +359,7 @@ def post_question():
     q=Question()
     q.from_dict({**data,"author":g.current_user.first_name+" "+g.current_user.last_name+"_"+str(g.current_user.user_id).zfill(4)})
     q.save()
-    return make_response(f"success {q.id} created",200)
+    return make_response({"id":q.id},200)
 
 @app.put('/question/<int:id>')
 @token_auth.login_required()
