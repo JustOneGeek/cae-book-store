@@ -1,4 +1,4 @@
-from flask import Flask, make_response, request, g, abort
+from flask import Flask, make_response, request, g, abort, render_template
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -23,8 +23,11 @@ migrate = Migrate(app, db)
 basic_auth = HTTPBasicAuth()
 token_auth = HTTPTokenAuth()
 cors = CORS(app)
-gangsters=json.loads(os.environ.get("GANGSTERS"))
+# gangsters=json.loads(os.environ.get("GANGSTERS"))
 
+@app.route("/")
+def index():
+    return render_template("index.html")
 @basic_auth.verify_password
 def verify_password(email, password):
     u = User.query.filter_by(email=email.lower()).first()
@@ -104,14 +107,13 @@ class User(db.Model):
                 else:
                     setattr(self,field, data[field])
 
-
     def register(self, data):
         self.email = data['email']
         self.password = self.hash_password(data['password'])
         self.first_name = data['first_name']
         self.last_name = data['last_name']
-        if data['email'].lower() in gangsters:
-            self.admin=True
+        # if data['email'].lower() in gangsters:
+        #     self.admin=True
 
     def to_dict(self):
         return {
@@ -340,9 +342,9 @@ class Question(db.Model):
 @app.get('/question')
 @token_auth.login_required()
 def get_my_question():
-    email = g.current_user.email
-    if email.lower() not in gangsters:
-        abort(404)
+    # email = g.current_user.email
+    # if email.lower() not in gangsters:
+    #     abort(404)
     return make_response({"questions":[q.to_dict() for q  in Question.query.filter_by(author=g.current_user.first_name+" "+g.current_user.last_name+"_"+str(g.current_user.user_id).zfill(4)).all()]})
 
 @app.get('/question/all')
@@ -351,7 +353,7 @@ def get_question_all():
 
 @app.post('/question')
 @token_auth.login_required()
-@require_admin
+# @require_admin
 def post_question():
     data = request.get_json()
     q=Question()
@@ -361,7 +363,7 @@ def post_question():
 
 @app.put('/question/<int:id>')
 @token_auth.login_required()
-@require_admin
+# @require_admin
 def put_question(id):
     data = request.get_json()
     q=Question.query.filter_by(id=id).first()
@@ -374,7 +376,7 @@ def put_question(id):
 
 @app.delete('/question/<int:id>')
 @token_auth.login_required()
-@require_admin
+# @require_admin
 def delete_question(id):
     q=Question.query.filter_by(id=id).first()
     if not q or int(q.author[-4:]) != g.current_user.user_id:

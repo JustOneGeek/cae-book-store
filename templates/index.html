@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='prism.css')}}">
+    <script src="{{url_for('static',filename='prism.js')}}" defer></script>
+    <title>Quiz Up API - Documentation</title>
+    <style>
+        body {
+            font-family: Arial;
+            color:#ccc;
+        }
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #303030;
+            color:#ccc;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            color:#ccc;
+
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #202020;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #505050;
+        }
+
+        /* Style the tab content */
+        div[class$="content"] {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        dt {
+            font-weight: bold;
+        }
+
+        dl,
+        dd {
+            font-size: 0.9rem;
+        }
+
+        dd {
+            margin-bottom: 1em;
+        }
+        body{
+            background-color: #272822;
+        }
+        code {
+            white-space: pre !important;
+        }
+
+        h2 {
+            background-color: lightblue;
+            display: inline-block;
+            color:#272822;
+            padding:5px;
+        }
+
+        h3 {
+            background-color: lightgreen;
+            display: inline-block;
+            color:#272822;
+            padding:5px;
+        }
+
+        td {
+            vertical-align: top;
+            overflow: auto;
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Quiz Up API Documentation</h1>
+    <b>The base URL for all endpoints is: https://cae-bookstore.herokuapp.com/</b><br><br>
+    <h2>Authenication and Authorization</h2>
+    <div>
+        <hr>
+        <table style="width:100%">
+            <tr>
+                <th style="width:40%"></th>
+                <th style="width:50%"></th>
+            </tr>
+            <tr>
+                <td>
+                    <dl>
+                        <h3>Registration</h3>
+                        <dt>Endpoint</dt>
+                        <dd><code>/user</code></dd>
+                        <dt>Method</dt>
+                        <dd>Post</dd>
+                        <dt>Content Type</dt>
+                        <dd>application/json</dd>
+                        <dt>Authentication Type</dt>
+                        <dd>None</dd>
+                        <dt>Example Payload</dt>
+                        <dd><code>
+{
+    "email":"miked@bears.com",
+    "first_name":"Mike",
+    "last_name":"Ditka",
+    "password":"1234"
+}
+            </code></dd>
+                    </dl>
+                </td>
+                <td>
+                    <div class="tab">
+                        <center><b>Code Examples</b></center>
+                        <button class="red-links" onclick="openCode(event,'output-r','reg')">Output</button>
+                        <button class="reg-links" onclick="openCode(event, 'fetch-r', 'reg')">JavaScript(Fetch)</button>
+                        <button class="reg-links" onclick="openCode(event, 'python-r', 'reg')">Python
+                            (Requests)</button>
+                        <button class="reg-links" onclick="openCode(event, 'axios-r', 'reg')">JavaScript(Axios)</button>
+                    </div>
+                    <div id="output-r" class="reg-content">
+<code  class="language-javascript">
+N/A
+</code>
+                    </div>
+                    <div id="fetch-r" class="reg-content">
+                        <code class="language-javascript">
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+    "email": "miked@bears.com",
+    "first_name": "Mike",
+    "last_name": "Ditka",
+    "password": "1234"
+});
+
+var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+};
+
+fetch("https://cae-bookstore.herokuapp.com/user", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+                </code>
+                    </div>
+                    <div id="python-r" class="reg-content">
+                        <code class="language-python">
+import requests
+import json
+
+url = "https://cae-bookstore.herokuapp.com/user"
+
+payload = json.dumps({
+    "email": "miked@bears.com",
+    "first_name": "Mike",
+    "last_name": "Ditka",
+    "password": "1234"
+})
+headers = {
+    'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+                </code>
+                    </div>
+                    <div id="axios-r" class="reg-content">
+                        <code  class="language-javascript">
+var axios = require('axios');
+var data = JSON.stringify({
+    "email": "miked@bears.com",
+    "first_name": "Mike",
+    "last_name": "Ditka",
+    "password": "1234"
+});
+
+var config = {
+    method: 'post',
+    url: 'https://cae-bookstore.herokuapp.com/user',
+    headers: { 
+    'Content-Type': 'application/json'
+    },
+    data : data
+};
+
+axios(config)
+.then(function (response) {
+    console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+    console.log(error);
+});
+                </code>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <table style="width:100%">
+            <tr>
+                <th style="width:40%"></th>
+                <th style="width:50%"></th>
+            </tr>
+            <td>
+                <dl>
+                    <h3>Login</h3>
+                    <dt>Endpoint</dt>
+                    <dd><code>/login</code></dd>
+                    <dt>Method</dt>
+                    <dd>Get</dd>
+                    <dt>Content Type</dt>
+                    <dd>application/json</dd>
+                    <dt>Authentication Type</dt>
+                    <dd>Basic Authentication</dd>
+                    <dt>Example Payload</dt>
+                    <dd><code>
+N/A
+                    </code></dd>
+                </dl>
+            </td>
+            <td>
+                <div class="tab">
+                    <center><b>Code Examples</b></center>
+                    <button class="login-links" onclick="openCode(event,'output-l','login')">Output</button>
+                    <button class="login-links" onclick="openCode(event, 'fetch-l', 'login')">JavaScript(Fetch)</button>
+                    <button class="login-links" onclick="openCode(event, 'python-l', 'login')">Python
+                        (Requests)</button>
+                    <button class="login-links" onclick="openCode(event, 'axios-l', 'login')">JavaScript(Axios)</button>
+                </div>
+                <div id="output-l" class="login-content">
+                    <code  class="language-javascript">
+{
+    "admin": null,
+    "created_on": "Mon, 06 Mar 2023 18:31:15 GMT",
+    "email": "miked@bears.com",
+    "first_name": "Mike",
+    "last_name": "Ditka",
+    "modified_on": "Mon, 06 Mar 2023 18:31:19 GMT",
+    "token": "gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M",
+    "user_id": 505
+}
+                    </code>
+                                        </div>
+                <div id="fetch-l" class="login-content">
+                    <code class="language-javascript">
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+    "email": "miked@bears.com",
+    "first_name": "Mike",
+    "last_name": "Ditka",
+    "password": "1234"
+});
+
+var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+};
+
+fetch("https://cae-bookstore.herokuapp.com/user", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+                            </code>
+                </div>
+                <div id="python-l" class="login-content">
+                    <code  class="language-python">
+import requests
+import json
+
+url = "https://cae-bookstore.herokuapp.com/user"
+
+payload = json.dumps({
+    "email": "miked@bears.com",
+    "first_name": "Mike",
+    "last_name": "Ditka",
+    "password": "1234"
+})
+headers = {
+    'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+                            </code>
+                </div>
+                <div id="axios-l" class="login-content">
+                    <code  class="language-javascript">
+var axios = require('axios');
+var data = JSON.stringify({
+    "email": "miked@bears.com",
+    "first_name": "Mike",
+    "last_name": "Ditka",
+    "password": "1234"
+});
+
+var config = {
+    method: 'post',
+    url: 'https://cae-bookstore.herokuapp.com/user',
+    headers: { 
+    'Content-Type': 'application/json'
+    },
+    data : data
+};
+
+axios(config)
+.then(function (response) {
+    console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+    console.log(error);
+});
+                        </code>
+                </div>
+            </td>
+            </tr>
+        </table>
+        <hr>
+        <table style="width:100%">
+            <tr>
+                <th style="width:40%"></th>
+                <th style="width:50%"></th>
+            </tr>
+            <td>
+                <dl>
+                    <h3>Edit User</h3>
+                    <dt>Endpoint</dt>
+                    <dd><code>/user</code></dd>
+                    <dt>Method</dt>
+                    <dd>Put</dd>
+                    <dt>Content Type</dt>
+                    <dd>application/json</dd>
+                    <dt>Authentication Type</dt>
+                    <dd>Token Authentication</dd>
+                    <dt>Example Payload<br>JSON of attributes to change</dt>
+                    <dd><code>
+{
+    "email":"miked@dabears.com"
+}
+                    </code></dd>
+                </dl>
+            </td>
+            <td>
+                <div class="tab">
+                    <center><b>Code Examples</b></center>
+                    <button class="editu-links" onclick="openCode(event,'output-eu','editu')">Output</button>
+                    <button class="editu-links" onclick="openCode(event, 'fetch-eu', 'editu')">JavaScript(Fetch)</button>
+                    <button class="editu-links" onclick="openCode(event, 'python-eu', 'editu')">Python
+                        (Requests)</button>
+                    <button class="editu-links" onclick="openCode(event, 'axios-eu', 'editu')">JavaScript(Axios)</button>
+                </div>
+                <div id="output-eu" class="editu-content">
+                    <code class="language-javascript">
+N/A
+                    </code>
+                </div>
+                <div id="fetch-eu" class="editu-content">
+                    <code class="language-javascript">
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M");
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+    "email": "miked@dabears.com"
+});
+
+var requestOptions = {
+    method: 'PUT',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+};
+
+fetch("https://cae-bookstore.herokuapp.com/user", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+                    </code>
+                </div>
+                <div id="python-eu" class="editu-content">
+                    <code class="language-python">
+import requests
+import json
+
+url = "https://cae-bookstore.herokuapp.com/user"
+
+payload = json.dumps({
+    "email": "miked@dabears.com"
+})
+headers = {
+    'Authorization': 'Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M',
+    'Content-Type': 'application/json'
+}
+
+response = requests.request("PUT", url, headers=headers, data=payload)
+
+print(response.text)
+                        
+                </code>
+                </div>
+                <div id="axios-eu" class="editu-content">
+                    <code  class="language-javascript">
+var axios = require('axios');
+var data = JSON.stringify({
+    "email": "miked@dabears.com"
+});
+
+var config = {
+    method: 'put',
+    url: 'https://cae-bookstore.herokuapp.com/user',
+    headers: { 
+    'Authorization': 'Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M', 
+    'Content-Type': 'application/json'
+    },
+    data : data
+};
+
+axios(config)
+.then(function (response) {
+    console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+    console.log(error);
+});
+                        
+                    </code>
+                </div>
+            </td>
+            </tr>
+        </table>
+        <hr>
+        <table style="width:100%">
+            <tr>
+                <th style="width:40%"></th>
+                <th style="width:50%"></th>
+            </tr>
+            <td>
+                <dl>
+                    <h3>Delete User</h3>
+                    <dt>Endpoint</dt>
+                    <dd><code>/user</code></dd>
+                    <dt>Method</dt>
+                    <dd>Delete</dd>
+                    <dt>Content Type</dt>
+                    <dd>application/json</dd>
+                    <dt>Authentication Type</dt>
+                    <dd>Token Authentication</dd>
+                    <dt>Example Payload</dt>
+                    <dd><code>
+N/A
+                    </code></dd>
+                </dl>
+            </td>
+            <td>
+                <div class="tab">
+                    <center><b>Code Examples</b></center>
+                    <button class="delu-links" onclick="openCode(event,'output-du','delu')">Output</button>
+                    <button class="delu-links" onclick="openCode(event, 'fetch-du', 'delu')">JavaScript(Fetch)</button>
+                    <button class="delu-links" onclick="openCode(event, 'python-du', 'delu')">Python
+                        (Requests)</button>
+                    <button class="delu-links" onclick="openCode(event, 'axios-du', 'delu')">JavaScript(Axios)</button>
+                </div>
+                <div id="output-du" class="delu-content">
+                    <code class="language-javascript">
+N/A
+                    </code>
+                </div>
+                <div id="fetch-du" class="delu-content">
+                    <code class="language-javascript">
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M");
+
+var requestOptions = {
+    method: 'DELETE',
+    headers: myHeaders,
+    redirect: 'follow'
+};
+
+fetch("https://cae-bookstore.herokuapp.com/user", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+
+                    </code>
+                </div>
+                <div id="python-du" class="delu-content">
+                    <code class="language-python">
+import requests
+
+url = "https://cae-bookstore.herokuapp.com/user"
+
+payload={}
+headers = {
+    'Authorization': 'Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M'
+}
+
+response = requests.request("DELETE", url, headers=headers, data=payload)
+
+print(response.text)
+
+                        
+                </code>
+                </div>
+                <div id="axios-du" class="delu-content">
+                    <code  class="language-javascript">
+var axios = require('axios');
+
+var config = {
+    method: 'delete',
+    url: 'https://cae-bookstore.herokuapp.com/user',
+    headers: { 
+    'Authorization': 'Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M'
+    }
+};
+
+axios(config)
+.then(function (response) {
+    console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+    console.log(error);
+});
+                        
+                        
+</code>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<hr>   
+        <h2>Quiz Questions</h2>
+        <div>
+            <table style="width:100%">
+                <tr>
+                    <th style="width:40%"></th>
+                    <th style="width:50%"></th>
+                </tr>
+                <td>
+                    <dl>
+                        <h3>Get Your Quiz Questions</h3>
+                        <dt>Endpoint</dt>
+                        <dd><code>/question</code></dd>
+                        <dt>Method</dt>
+                        <dd>Get</dd>
+                        <dt>Content Type</dt>
+                        <dd>application/json</dd>
+                        <dt>Authentication Type</dt>
+                        <dd>Token Authentication</dd>
+                        <dt>Example Payload</dt>
+                        <dd><code>
+N/A
+                        </code></dd>
+                    </dl>
+                </td>
+                <td>
+                    <div class="tab">
+                        <center><b>Code Examples</b></center>
+                        <button class="uq-links" onclick="openCode(event,'output-uq','uq')">Output</button>
+                        <button class="uq-links" onclick="openCode(event, 'fetch-uq', 'uq')">JavaScript(Fetch)</button>
+                        <button class="uq-links" onclick="openCode(event, 'python-uq', 'uq')">Python
+                            (Requests)</button>
+                        <button class="uq-links" onclick="openCode(event, 'axios-uq', 'uq')">JavaScript(Axios)</button>
+                    </div>
+                    <div id="output-uq" class="uq-content">
+                        <code class="language-javascript">
+{
+    "questions": [
+        {
+            "answer": "newspaper",
+            "author": "Mike Ditka_0505",
+            "created_on": "Tue, 07 Mar 2023 16:44:15 GMT",
+            "id": 117,
+            "question": "What is Black and White and Read all over"
+        },
+        {
+            "answer": "axios",
+            "author": "Mike Ditka_0505",
+            "created_on": "Tue, 07 Mar 2023 16:45:14 GMT",
+            "id": 118,
+            "question": "Name a 3rd Party Package that helps with API Calls?"
+        }
+    ]
+}
+                        </code>
+                    </div>
+                    <div id="fetch-uq" class="uq-content">
+                        <code class="language-javascript">
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M");
+
+var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+};
+
+fetch("https://cae-bookstore.herokuapp.com/question", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));   
+
+                        </code>
+                    </div>
+                    <div id="python-uq" class="uq-content">
+                        <code class="language-python">
+import requests
+
+url = "https://cae-bookstore.herokuapp.com/question"
+
+payload={}
+headers = {
+  'Authorization': 'Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+
+                            
+                    </code>
+                    </div>
+                    <div id="axios-uq" class="uq-content">
+                        <code  class="language-javascript">
+var axios = require('axios');
+
+var config = {
+    method: 'get',
+    url: 'https://cae-bookstore.herokuapp.com/question',
+    headers: { 
+    'Authorization': 'Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M'
+    }
+};
+
+axios(config)
+.then(function (response) {
+    console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+    console.log(error);
+});
+                            
+                            
+                        </code>
+                    </div>
+                </td>
+                </tr>
+            </table>
+            <hr>      
+            <table style="width:100%">
+                <tr>
+                    <th style="width:40%"></th>
+                    <th style="width:50%"></th>
+                </tr>
+                <td>
+                    <dl>
+                        <h3>Get <b>All</b> Quiz Questions</h3>
+                        <dt>Endpoint</dt>
+                        <dd><code>/question/all</code></dd>
+                        <dt>Method</dt>
+                        <dd>Get</dd>
+                        <dt>Content Type</dt>
+                        <dd>application/json</dd>
+                        <dt>Authentication Type</dt>
+                        <dd>Token Authentication</dd>
+                        <dt>Example Payload</dt>
+                        <dd><code>
+N/A
+                        </code></dd>
+                    </dl>
+                </td>
+                <td>
+                    <div class="tab">
+                        <center><b>Code Examples</b></center>
+                        <button class="aq-links" onclick="openCode(event,'output-aq','aq')">Output</button>
+                        <button class="aq-links" onclick="openCode(event, 'fetch-aq', 'aq')">JavaScript(Fetch)</button>
+                        <button class="aq-links" onclick="openCode(event, 'python-aq', 'aq')">Python
+                            (Requests)</button>
+                        <button class="aq-links" onclick="openCode(event, 'axios-aq', 'aq')">JavaScript(Axios)</button>
+                    </div>
+                    <div id="output-aq" class="aq-content">
+                        <code class="language-javascript">
+{
+    "questions": [
+        {
+            "answer": "parrot",
+            "author": "Please helpme_0249",
+            "created_on": "Fri, 22 Jul 2022 13:08:52 GMT",
+            "id": 3,
+            "question": "What is bright orange with green on top and sounds like a parrot?"
+        },
+        {
+            "answer": "promise",
+            "author": "Please helpme_0249",
+            "created_on": "Fri, 22 Jul 2022 02:47:29 GMT",
+            "id": 1,
+            "question": "What can you keep after giving to someone?"
+        },
+        {
+            "answer": "newspaper",
+            "author": "Mike Ditka_0505",
+            "created_on": "Tue, 07 Mar 2023 16:44:15 GMT",
+            "id": 117,
+            "question": "What is Black and White and Read all over"
+        },
+        {
+            "answer": "axios",
+            "author": "Mike Ditka_0505",
+            "created_on": "Tue, 07 Mar 2023 16:45:14 GMT",
+            "id": 118,
+            "question": "Name a 3rd Party Package that helps with API Calls?"
+        }
+    ]
+}
+                        </code>
+                    </div>
+                    <div id="fetch-aq" class="aq-content">
+                        <code class="language-javascript">
+var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+};
+
+fetch("https://cae-bookstore.herokuapp.com/question/all", requestOptions)
+.then(response => response.text())
+.then(result => console.log(result))
+.catch(error => console.log('error', error));
+                        </code>
+                    </div>
+                    <div id="python-aq" class="aq-content">
+                        <code class="language-python">
+import requests
+
+url = "https://cae-bookstore.herokuapp.com/question/all"
+
+payload={}
+headers = {}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+                            
+
+                            
+                    </code>
+                    </div>
+                    <div id="axios-aq" class="aq-content">
+                        <code class="language-javascript">
+var axios = require('axios');
+
+var config = {
+    method: 'get',
+    url: 'https://cae-bookstore.herokuapp.com/question/all',
+    headers: { }
+};
+
+axios(config)
+.then(function (response) {
+    console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+    console.log(error);
+});
+                            
+                            
+                        </code>
+                    </div>
+                </td>
+                </tr>
+            </table>
+            <hr>      
+            <table style="width:100%">
+                <tr>
+                    <th style="width:40%"></th>
+                    <th style="width:50%"></th>
+                </tr>
+                <td>
+                    <dl>
+                        <h3>Create Quiz Question</h3>
+                        <dt>Endpoint</dt>
+                        <dd><code>/question</code></dd>
+                        <dt>Method</dt>
+                        <dd>Post</dd>
+                        <dt>Content Type</dt>
+                        <dd>application/json</dd>
+                        <dt>Authentication Type</dt>
+                        <dd>Token Authentication</dd>
+                        <dt>Example Payload</dt>
+                        <dd><code>
+{
+    "question":"Name a 3rd Party Package that helps with API Calls?",
+    "answer":"axios"
+}
+                        </code></dd>
+                    </dl>
+                </td>
+                <td>
+                    <div class="tab">
+                        <center><b>Code Examples</b></center>
+                        <button class="pq-links" onclick="openCode(event,'output-pq','pq')">Output</button>
+                        <button class="pq-links" onclick="openCode(event, 'fetch-pq', 'pq')">JavaScript(Fetch)</button>
+                        <button class="pq-links" onclick="openCode(event, 'python-pq', 'pq')">Python
+                            (Requests)</button>
+                        <button class="pq-links" onclick="openCode(event, 'axios-pq', 'pq')">JavaScript(Axios)</button>
+                    </div>
+                    <div id="output-du" class="delu-content">
+                        <code class="language-javascript">
+N/A
+                        </code>
+                    </div>
+                    <div id="fetch-pq" class="pq-content">
+                        <code class="language-javascript">
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M");
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+    "question": "Name a 3rd Party Package that helps with API Calls?",
+    "answer": "axios"
+});
+
+var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+};
+
+fetch("https://cae-bookstore.herokuapp.com/question", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+                        </code>
+                    </div>
+                    <div id="python-pq" class="pq-content">
+                        <code class="language-python">
+
+import requests
+import json
+
+url = "https://cae-bookstore.herokuapp.com/question"
+
+payload = json.dumps({
+    "question": "Name a 3rd Party Package that helps with API Calls?",
+    "answer": "axios"
+})
+headers = {
+    'Authorization': 'Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M',
+    'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+                            
+                    </code>
+                    </div>
+                    <div id="axios-pq" class="pq-content">
+                        <code class="language-javascript">
+      
+var axios = require('axios');
+var data = JSON.stringify({
+  "question": "Name a 3rd Party Package that helps with API Calls?",
+  "answer": "axios"
+});
+
+var config = {
+  method: 'post',
+  url: 'https://cae-bookstore.herokuapp.com/question',
+  headers: { 
+    'Authorization': 'Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M', 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
+
+                        </code>
+                    </div>
+                </td>
+                </tr>
+            </table>
+            <hr>      
+            <table style="width:100%">
+                <tr>
+                    <th style="width:40%"></th>
+                    <th style="width:50%"></th>
+                </tr>
+                <td>
+                    <dl>
+                        <h3>Edit User's Quiz Questions</h3>
+                        <dt>Endpoint</dt>
+                        <dd><code>/question/&lt;Question ID&gt;</code></dd>
+                        <dt>Method</dt>
+                        <dd>Put</dd>
+                        <dt>Content Type</dt>
+                        <dd>application/json</dd>
+                        <dt>Authentication Type</dt>
+                        <dd>Token Authentication</dd>
+                        <dt>Example Payload <br>JSON of attributes to change </dt>
+                        <dd><code>
+{
+    "answer":"Axios"
+}
+                        </code></dd>
+                    </dl>
+                </td>
+                <td>
+                    <div class="tab">
+                        <center><b>Code Examples</b></center>
+                        <button class="eq-links" onclick="openCode(event,'output-eq','eq')">Output</button>
+                        <button class="eq-links" onclick="openCode(event, 'fetch-eq', 'eq')">JavaScript(Fetch)</button>
+                        <button class="eq-links" onclick="openCode(event, 'python-eq', 'eq')">Python
+                            (Requests)</button>
+                        <button class="eq-links" onclick="openCode(event, 'axios-eq', 'eq')">JavaScript(Axios)</button>
+                    </div>
+                    <div id="output-eq" class="eq-content">
+                        <code class="language-javascript">
+N/A
+                        </code>
+                    </div>
+                    <div id="fetch-eq" class="eq-content">
+                        <code class="language-javascript">
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M");
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+    "answer": "Axios"
+});
+
+var requestOptions = {
+    method: 'PUT',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+};
+
+fetch("https://cae-bookstore.herokuapp.com/question/116", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+                        </code>
+                    </div>
+                    <div id="python-eq" class="eq-content">
+                        <code class="language-python">
+
+import requests
+import json
+
+url = "https://cae-bookstore.herokuapp.com/question/116"
+
+payload = json.dumps({
+    "answer": "Axios"
+})
+headers = {
+    'Authorization': 'Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M',
+    'Content-Type': 'application/json'
+}
+
+response = requests.request("PUT", url, headers=headers, data=payload)
+
+print(response.text)
+                            
+                            
+                    </code>
+                    </div>
+                    <div id="axios-eq" class="eq-content">
+                        <code class="language-javascript">
+var axios = require('axios');
+var data = JSON.stringify({
+    "answer": "Axios"
+});
+
+var config = {
+    method: 'put',
+    url: 'https://cae-bookstore.herokuapp.com/question/116',
+    headers: { 
+    'Authorization': 'Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M', 
+    'Content-Type': 'application/json'
+    },
+    data : data
+};
+
+axios(config)
+.then(function (response) {
+    console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+    console.log(error);
+});
+                            
+                            
+                        </code>
+                    </div>
+                </td>
+                </tr>
+            </table>
+            <hr>   
+            <table style="width:100%">
+                <tr>
+                    <th style="width:40%"></th>
+                    <th style="width:50%"></th>
+                </tr>
+                <td>
+                    <dl>
+                        <h3>Delete Your Quiz Question</h3>
+                        <dt>Endpoint</dt>
+                        <dd><code>/question/&lt;Question ID&gt;</code></dd>
+                        <dt>Method</dt>
+                        <dd>Delete</dd>
+                        <dt>Content Type</dt>
+                        <dd>application/json</dd>
+                        <dt>Authentication Type</dt>
+                        <dd>Token Authentication</dd>
+                        <dt>Example Payload</dt>
+                        <dd><code>
+N/A
+                        </code></dd>
+                    </dl>
+                </td>
+                <td>
+                    <div class="tab">
+                        <center><b>Code Examples</b></center>
+                        <button class="dq-links" onclick="openCode(event,'output-dq','dq')">Output</button>
+                        <button class="dq-links" onclick="openCode(event, 'fetch-dq', 'dq')">JavaScript(Fetch)</button>
+                        <button class="dq-links" onclick="openCode(event, 'python-dq', 'dq')">Python
+                            (Requests)</button>
+                        <button class="dq-links" onclick="openCode(event, 'axios-dq', 'dq')">JavaScript(Axios)</button>
+                    </div>
+                    <div id="output-dq" class="dq-content">
+                        <code class="language-javascript">
+N/A
+                        </code>
+                    </div>
+                    <div id="fetch-dq" class="dq-content">
+                        <code class="language-javascript">
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M");
+
+var requestOptions = {
+    method: 'DELETE',
+    headers: myHeaders,
+    redirect: 'follow'
+};
+
+fetch("https://cae-bookstore.herokuapp.com/question/116", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+
+                        </code>
+                    </div>
+                    <div id="python-dq" class="dq-content">
+                        <code class="language-python">
+import requests
+
+url = "https://cae-bookstore.herokuapp.com/question/116"
+
+payload={}
+headers = {
+    'Authorization': 'Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M'
+}
+
+response = requests.request("DELETE", url, headers=headers, data=payload)
+
+print(response.text)
+                                                       
+                    </code>
+                    </div>
+                    <div id="axios-dq" class="dq-content">
+                        <code class="language-javascript">
+var axios = require('axios');
+
+var config = {
+    method: 'delete',
+    url: 'https://cae-bookstore.herokuapp.com/question/116',
+    headers: { 
+    'Authorization': 'Bearer gyrdOKy13wg90PxH6XdDUYu1bbB-qu4irfd2jWTFL3M'
+    }
+};
+
+axios(config)
+.then(function (response) {
+    console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+    console.log(error);
+});
+                            
+                            
+                        </code>
+                    </div>
+                </td>
+                </tr>
+            </table>
+            <hr>      
+            
+        </div>
+</body>
+
+</html>
+
+
+<script>
+    function openCode(evt, language, section) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName(`${section}-content`);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName(`${section}-links`);
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(language).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
