@@ -270,23 +270,15 @@ N/A
                 <div id="fetch-l" class="login-content">
                     <code class="language-javascript">
 var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-    "email": "miked@bears.com",
-    "first_name": "Mike",
-    "last_name": "Ditka",
-    "password": "1234"
-});
+myHeaders.append("Authorization", "Basic bWlrZWQ3MkBiZWFycy5jb206MTIzNA==");
 
 var requestOptions = {
-    method: 'POST',
+    method: 'GET',
     headers: myHeaders,
-    body: raw,
     redirect: 'follow'
 };
 
-fetch("https://cae-bookstore.herokuapp.com/user", requestOptions)
+fetch("127.0.0.1:5000/login", requestOptions)
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
@@ -295,42 +287,30 @@ fetch("https://cae-bookstore.herokuapp.com/user", requestOptions)
                 <div id="python-l" class="login-content">
                     <code  class="language-python">
 import requests
-import json
 
-url = "https://cae-bookstore.herokuapp.com/user"
+url = "127.0.0.1:5000/login"
 
-payload = json.dumps({
-    "email": "miked@bears.com",
-    "first_name": "Mike",
-    "last_name": "Ditka",
-    "password": "1234"
-})
+payload={}
 headers = {
-    'Content-Type': 'application/json'
+    'Authorization': 'Basic bWlrZWQ3MkBiZWFycy5jb206MTIzNA=='
 }
 
-response = requests.request("POST", url, headers=headers, data=payload)
+response = requests.request("GET", url, headers=headers, data=payload)
 
 print(response.text)
-                            </code>
+                        
+                    </code>
                 </div>
                 <div id="axios-l" class="login-content">
                     <code  class="language-javascript">
 var axios = require('axios');
-var data = JSON.stringify({
-    "email": "miked@bears.com",
-    "first_name": "Mike",
-    "last_name": "Ditka",
-    "password": "1234"
-});
 
 var config = {
-    method: 'post',
-    url: 'https://cae-bookstore.herokuapp.com/user',
+    method: 'get',
+    url: '127.0.0.1:5000/login',
     headers: { 
-    'Content-Type': 'application/json'
-    },
-    data : data
+    'Authorization': 'Basic bWlrZWQ3MkBiZWFycy5jb206MTIzNA=='
+    }
 };
 
 axios(config)
@@ -340,6 +320,7 @@ axios(config)
 .catch(function (error) {
     console.log(error);
 });
+
                         </code>
                 </div>
             </td>
@@ -834,7 +815,7 @@ axios(config)
                             (Requests)</button>
                         <button class="pq-links" onclick="openCode(event, 'axios-pq', 'pq')">JavaScript(Axios)</button>
                     </div>
-                    <div id="output-du" class="delu-content">
+                    <div id="output-pq" class="delu-content">
                         <code class="language-javascript">
 {id: 116}
                         </code>
